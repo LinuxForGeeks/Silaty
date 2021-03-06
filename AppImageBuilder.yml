@@ -6,7 +6,7 @@ AppDir:
     id: com.github.AXeL-dev.silaty
     name: Silaty
     icon: /usr/share/icons/hicolor/scalable/apps/silaty.svg
-    version: latest
+    version: '1.4'
     exec: /usr/local/bin/silaty-indicator
     exec_args: $@
   runtime:

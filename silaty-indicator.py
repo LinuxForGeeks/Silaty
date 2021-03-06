@@ -250,7 +250,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.''')
-		about_dialog.set_version("1.3")
+		about_dialog.set_version("1.4")
 		about_dialog.set_comments(_("A neat Prayer Time Reminder App.\n Simple and complete so no prayer is missed"))
 		about_dialog.set_copyright(_("Copyright © %s Silaty Team") % '2021')
 		about_dialog.run()
