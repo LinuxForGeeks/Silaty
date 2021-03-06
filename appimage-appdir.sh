@@ -13,7 +13,9 @@ cp -R audio AppDir/usr/share/silaty/
 cp -R data AppDir/usr/share/silaty/
 
 cp icons/hicolor/128x128/apps/silaty.svg AppDir/usr/share/icons/hicolor/scalable/apps/
-cp icons/hicolor/128x128/apps/silaty.svg.png AppDir/usr/share/icons/hicolor/scalable/apps/
+cp icons/hicolor/128x128/apps/silaty.png AppDir/usr/share/icons/hicolor/scalable/apps/
+cp icons/hicolor/128x128/apps/silaty.svg AppDir/usr/share/icons/
+cp icons/hicolor/128x128/apps/silaty.png AppDir/usr/share/icons/
 chmod 644 AppDir/usr/share/icons/hicolor/scalable/apps/silaty.svg
 
 cp icons/hicolor/128x128/apps/silaty.svg AppDir/usr/share/icons/hicolor/128x128/apps/
