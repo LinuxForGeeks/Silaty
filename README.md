@@ -6,8 +6,14 @@ A neat prayer reminder app in GTK
 ![screenshot](screenshots/Silaty.png)
 
 ## Installation
-[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/silaty) [![احصل عليه من Snap Store](https://snapcraft.io/static/images/badges/ar/snap-store-black.svg)](https://snapcraft.io/silaty) 
+
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/silaty)
+[![احصل عليه من Snap Store](https://snapcraft.io/static/images/badges/ar/snap-store-black.svg)](https://snapcraft.io/silaty)
+[<img src="screenshots/linux-download.png" width="182" height="56" alt="Download the AppImage" />](https://github.com/LinuxForGeeks/Silaty/releases/download/v1.4/Silaty-1.4-x86_64.AppImage)
+
 ### Install using debian package
+
+> :warning: The debian package is outdated, please install using one of the [above packages](#installation) or [from source](#install-from-source).
 
 Download the [package](https://github.com/AXeL-dev/Silaty/releases/download/v1.3/silaty_1.3_all.deb).
 
@@ -47,6 +53,11 @@ sudo ./uninstall.sh
 ```
 
 ## Changelog
+
+### v1.4
+
+* added snap & appimage packages.
+* fixed prayer times issues on some locations.
 
 ### v1.3
 
