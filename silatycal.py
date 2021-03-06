@@ -1,5 +1,5 @@
 # Silaty
-# Copyright (c) 2018 - 2019 AXeL
+# Copyright (c) 2018 - 2021 AXeL
 # Copyright (c) 2014 - 2015 Jessewb786
 
 import gi
@@ -388,7 +388,7 @@ class Cal(Gtk.Box):
 			pixbuf = GdkPixbuf.Pixbuf.new_from_file(iconpath)
 			icon = Gtk.Image.new_from_pixbuf(pixbuf)
 		except GLib.GError:
-			icon = Gtk.Image.new_from_stock(Gtk.STOCK_MISSING_IMAGE, 22)
+			icon = Gtk.Image.new_from_stock(Gtk.STOCK_MISSING_IMAGE, Gtk.IconSize.LARGE_TOOLBAR)
 		return icon
 
 	def refresh(self):

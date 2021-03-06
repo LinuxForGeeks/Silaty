@@ -1,5 +1,5 @@
 # Silaty
-# Copyright (c) 2018 - 2019 AXeL
+# Copyright (c) 2018 - 2021 AXeL
 # Copyright (c) 2014 - 2015 Jessewb786
 
 import configparser
@@ -99,13 +99,13 @@ class Options:
 		return ['English', 'Arabic']#, 'French']
 
 	def get_fajr_adhans(self):
-		dirfiles = os.listdir( os.path.dirname(os.path.realpath(__file__))+"/audio/Fajr/")
+		dirfiles = os.listdir(os.path.dirname(os.path.realpath(__file__)) + "/audio/Fajr/")
 		wavfiles = filter(lambda song: song.endswith(".ogg"), dirfiles)
 		adhans = list(map(lambda x: os.path.splitext(x)[0], wavfiles))
 		return adhans
 
 	def get_normal_adhans(self):
-		dirfiles = os.listdir( os.path.dirname(os.path.realpath(__file__))+"/audio/Normal/")
+		dirfiles = os.listdir(os.path.dirname(os.path.realpath(__file__)) + "/audio/Normal/")
 		wavfiles = filter(lambda song: song.endswith(".ogg"), dirfiles)
 		adhans = list(map(lambda x: os.path.splitext(x)[0], wavfiles))
 		return adhans
