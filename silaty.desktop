@@ -2,8 +2,8 @@
 Version=1.0
 Name=Silaty
 Comment=A neat prayer reminder application
-Exec=silaty-indicator
-Icon=/usr/share/icons/hicolor/scalable/apps/silaty.svg
+Exec=/usr/local/bin/silaty-indicator
+Icon=silaty
 Terminal=false
 StartupNotify=true
 Type=Application

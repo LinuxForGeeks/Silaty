@@ -1,5 +1,5 @@
 # Silaty
-# Copyright (c) 2018 - 2019 AXeL
+# Copyright (c) 2018 - 2021 AXeL
 # Copyright (c) 2014 - 2015 Jessewb786
 
 import gi

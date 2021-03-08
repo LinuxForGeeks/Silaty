@@ -3,7 +3,7 @@
 #
 # Silaty
 #
-# Copyright (c) 2018 - 2019 AXeL
+# Copyright (c) 2018 - 2021 AXeL
 # Copyright (c) 2014 - 2015 Jessewb786
 #
 # TODO: Help document
@@ -236,7 +236,7 @@ class SilatyIndicator():
 		 "Ahmed Youssef <xmonader(at)gmail.com> (Developer)"])
 		about_dialog.set_artists(["Mustapha Asbbar <abobakrsalafi@gmail.com> (Designer)"])
 		about_dialog.set_license('''Silaty, A Prayer Times Reminder Application.
-Copyright © 2019 Silaty Team
+Copyright © 2021 Silaty Team
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -250,9 +250,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.''')
-		about_dialog.set_version("1.3")
+		about_dialog.set_version("1.4")
 		about_dialog.set_comments(_("A neat Prayer Time Reminder App.\n Simple and complete so no prayer is missed"))
-		about_dialog.set_copyright(_("Copyright © %s Silaty Team") % '2019')
+		about_dialog.set_copyright(_("Copyright © %s Silaty Team") % '2021')
 		about_dialog.run()
 		about_dialog.destroy()
 

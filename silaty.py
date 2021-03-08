@@ -1,5 +1,5 @@
 # Silaty
-# Copyright (c) 2018 - 2019 AXeL
+# Copyright (c) 2018 - 2021 AXeL
 # Copyright (c) 2014 - 2015 Jessewb786
 
 import gi
@@ -390,7 +390,7 @@ class Silaty(Gtk.Window):
 
     def on_fajr_play_pressed(self, widget, event):
         if self.fajrplaying == False:
-            uri = "file://"+ os.path.dirname(os.path.realpath(__file__))+"/audio/Fajr/"+self.fajradhan.get_active_text()+".ogg"
+            uri = "file://" + os.path.dirname(os.path.realpath(__file__)) + "/audio/Fajr/"+self.fajradhan.get_active_text() + ".ogg"
             self.fajrplayer = Gst.ElementFactory.make("playbin", "player")
             fakesink = Gst.ElementFactory.make("fakesink", "fakesink")
             bus = self.fajrplayer.get_bus()
@@ -412,7 +412,7 @@ class Silaty(Gtk.Window):
 
     def on_normal_play_pressed(self, widget, event):
         if self.normalplaying == False:
-            uri = "file://"+ os.path.dirname(os.path.realpath(__file__))+"/audio/Normal/"+self.normaladhan.get_active_text()+".ogg"
+            uri = "file://" + os.path.dirname(os.path.realpath(__file__)) + "/audio/Normal/"+self.normaladhan.get_active_text() + ".ogg"
             self.normalplayer = Gst.ElementFactory.make("playbin", "player")
             fakesink = Gst.ElementFactory.make("fakesink", "fakesink")
             bus = self.normalplayer.get_bus()

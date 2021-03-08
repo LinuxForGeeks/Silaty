@@ -1,5 +1,8 @@
 # Custom
 *.*~
+AppDir/*
+appimage-builder-cache/*
+*.AppImage
 
 # Python cache
 __pycache__/
