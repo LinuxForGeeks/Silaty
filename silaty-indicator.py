@@ -65,11 +65,11 @@ class SilatyIndicator():
 		# Add Prayer Times
 		print ("DEBUG: Adding the prayer times to menu @", (str(datetime.datetime.now())))
 		self.FajrItem     = Gtk.MenuItem(_("Fajr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.fajr_time()), sensitive=False)
-		#self.ShurukItem   = Gtk.MenuItem(_("Shuruk\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.shrouk_time()), sensitive=False)
-		self.DhuhrItem    = Gtk.MenuItem(_("Dhuhr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.zuhr_time()), sensitive=False)
+		#self.ShurukItem   = Gtk.MenuItem(_("Shuruk\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.shrouk_time()), sensitive=False)
+		self.DhuhrItem    = Gtk.MenuItem(_("Dhuhr\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.zuhr_time()), sensitive=False)
 		self.AsrItem      = Gtk.MenuItem(_("Asr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.asr_time()), sensitive=False)
 		self.MaghribItem  = Gtk.MenuItem(_("Maghrib\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.maghrib_time()), sensitive=False)
-		self.IshaItem     = Gtk.MenuItem(_("Isha\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.isha_time()), sensitive=False)
+		self.IshaItem     = Gtk.MenuItem(_("Isha\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.isha_time()), sensitive=False)
 		self.Menu.append(self.FajrItem)
 		#self.Menu.append(self.ShurukItem)
 		self.Menu.append(self.DhuhrItem)
@@ -119,11 +119,11 @@ class SilatyIndicator():
 
 		# Update Prayer Times items
 		self.FajrItem.set_label(_("Fajr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.fajr_time()))
-		#self.ShurukItem.set_label(_("Shuruk\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.shrouk_time()))
-		self.DhuhrItem.set_label(_("Dhuhr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.zuhr_time()))
+		#self.ShurukItem.set_label(_("Shuruk\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.shrouk_time()))
+		self.DhuhrItem.set_label(_("Dhuhr\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.zuhr_time()))
 		self.AsrItem.set_label(_("Asr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.asr_time()))
 		self.MaghribItem.set_label(_("Maghrib\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.maghrib_time()))
-		self.IshaItem.set_label(_("Isha\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.isha_time()))
+		self.IshaItem.set_label(_("Isha\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.isha_time()))
 
 		nextprayer = self.silaty.prayertimes.next_prayer()
 		tonextprayer = self.silaty.prayertimes.time_to_next_prayer()
