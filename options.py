@@ -96,7 +96,7 @@ class Options:
 		return ['12h', '24h']
 
 	def get_languages(self):
-		return ['English', 'Arabic']#, 'French']
+		return ['English', 'Arabic', 'French', 'Spanish']
 
 	def get_fajr_adhans(self):
 		dirfiles = os.listdir(os.path.dirname(os.path.realpath(__file__)) + "/audio/Fajr/")
