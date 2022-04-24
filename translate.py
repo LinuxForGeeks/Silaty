@@ -244,7 +244,7 @@ def translate_text(text):
 		'It\'s time for the %s prayer.': "C'est le temps pour la prière de %s.",
 		'%s, %s': '%s، %s',
 		'%s - %s, %s / %s': '%s - %s، %s / %s',
-		'AM': 'AM', //The correct should be Avant midi and Après midi, but it's too long.
+		'AM': 'AM', #The correct should be Avant midi and Après midi, but it's too long.
 		'PM': 'PM',
 		'Apply': 'Appliquer',
 		'Cancel': 'Annuler',
