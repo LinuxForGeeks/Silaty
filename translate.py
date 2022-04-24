@@ -383,6 +383,8 @@ def translate_text(text):
 		return arabicTranslations[text]
 	elif language == 'French' and text in frenchTranslations:
 		return frenchTranslations[text]
+	elif language == 'Spanish' and text in spanishTranslations:
+      		return spanishTranslations[text]
 	elif text in englishWeekDays:
 		return englishWeekDays[text]
 	else:
