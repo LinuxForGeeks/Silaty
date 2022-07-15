@@ -27,7 +27,7 @@ __all__ = ['Calendar', 'Prayertime', 'Madhab', 'as_pytime', 'as_pydatetime']
 
 import gi
 gi.require_version('Gtk', '3.0')
-gi.require_version('Notify', '0.7')
+gi.require_version('Notify', '0.8')
 from gi.repository import Gtk, Gst, GObject, Gio, GLib, GdkPixbuf, Notify
 from math import degrees, radians, atan, atan2, asin, acos, cos, sin, tan, fabs 
 from datetime import date, timedelta
