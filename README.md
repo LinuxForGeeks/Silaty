@@ -99,6 +99,7 @@ sudo ./uninstall.sh
   * Copy the desktop shortcut to the folder
   
 3. Change time to 24 clock:
+  Set clock to 24h in silaty settings
   Settings -> Date & Time -> Date, time & regional formatting -> Change data formats:
     ![screenshot](screenshots/short-long-time.png)
 
