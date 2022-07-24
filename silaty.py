@@ -3,6 +3,7 @@
 # Copyright (c) 2014 - 2015 Jessewb786
 
 import gi
+from PySide2 import QtWidgets, QtGui, QtCore
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gst', '1.0')
 from gi.repository import Gtk, Gst, Gio, GLib, Gdk, GdkPixbuf
@@ -389,44 +390,46 @@ class Silaty(Gtk.Window):
         self.prayertimes.options.fajr_adhan = widget.get_active_text()
 
     def on_fajr_play_pressed(self, widget, event):
-        if self.fajrplaying == False:
-            uri = "file://" + os.path.dirname(os.path.realpath(__file__)) + "/audio/Fajr/"+self.fajradhan.get_active_text() + ".ogg"
-            self.fajrplayer = Gst.ElementFactory.make("playbin", "player")
-            fakesink = Gst.ElementFactory.make("fakesink", "fakesink")
-            bus = self.fajrplayer.get_bus()
-            bus.add_signal_watch()
-            bus.connect('message', self.on_fajr_adhan_termination)
-            self.fajrplayer.set_property('uri', uri)
-            self.fajrplayer.set_property("video-sink", fakesink)
-            self.fajrplayer.set_state(Gst.State.PLAYING)
+        if sys.platform == "linux":
+	        if self.fajrplaying == False:
+                    uri = "file://" + os.path.dirname(os.path.realpath(__file__)) + "/audio/Fajr/"+self.fajradhan.get_active_text() + ".ogg"
+                    self.fajrplayer = Gst.ElementFactory.make("playbin", "player")
+                    fakesink = Gst.ElementFactory.make("fakesink", "fakesink")
+                    bus = self.fajrplayer.get_bus()
+                    bus.add_signal_watch()
+                    bus.connect('message', self.on_fajr_adhan_termination)
+                    self.fajrplayer.set_property('uri', uri)
+                    self.fajrplayer.set_property("video-sink", fakesink)
+                    self.fajrplayer.set_state(Gst.State.PLAYING)
 
-            self.fajradhanplay.set_image(Gtk.Image.new_from_icon_name("media-playback-pause",  Gtk.IconSize.BUTTON))
-            self.fajrplaying = True     
-        else:
-            self.fajrplayer.set_state(Gst.State.NULL)
-            self.fajradhanplay.set_image(Gtk.Image.new_from_icon_name("media-playback-start",  Gtk.IconSize.BUTTON))
-            self.fajrplaying = False
+                    self.fajradhanplay.set_image(Gtk.Image.new_from_icon_name("media-playback-pause",  Gtk.IconSize.BUTTON))
+                    self.fajrplaying = True
+        	else:
+                    self.fajrplayer.set_state(Gst.State.NULL)
+                    self.fajradhanplay.set_image(Gtk.Image.new_from_icon_name("media-playback-start",  Gtk.IconSize.BUTTON))
+                    self.fajrplaying = False
 
     def on_entered_normal_adhan(self, widget):
         self.prayertimes.options.normal_adhan = widget.get_active_text()
 
     def on_normal_play_pressed(self, widget, event):
-        if self.normalplaying == False:
-            uri = "file://" + os.path.dirname(os.path.realpath(__file__)) + "/audio/Normal/"+self.normaladhan.get_active_text() + ".ogg"
-            self.normalplayer = Gst.ElementFactory.make("playbin", "player")
-            fakesink = Gst.ElementFactory.make("fakesink", "fakesink")
-            bus = self.normalplayer.get_bus()
-            bus.add_signal_watch()
-            bus.connect('message', self.on_normal_adhan_termination)
-            self.normalplayer.set_property('uri', uri)
-            self.normalplayer.set_property("video-sink", fakesink)
-            self.normalplayer.set_state(Gst.State.PLAYING)
-            self.normaladhanplay.set_image(Gtk.Image.new_from_icon_name("media-playback-pause",  Gtk.IconSize.BUTTON))
-            self.normalplaying = True
-        else:
-            self.normalplayer.set_state(Gst.State.NULL)
-            self.normaladhanplay.set_image(Gtk.Image.new_from_icon_name("media-playback-start",  Gtk.IconSize.BUTTON))
-            self.normalplaying = False
+        if sys.platform == "linux": 
+	        if self.normalplaying == False:
+                    uri = "file://" + os.path.dirname(os.path.realpath(__file__)) + "/audio/Normal/"+self.normaladhan.get_active_text() + ".ogg"
+                    self.normalplayer = Gst.ElementFactory.make("playbin", "player")
+                    fakesink = Gst.ElementFactory.make("fakesink", "fakesink")
+                    bus = self.normalplayer.get_bus()
+                    bus.add_signal_watch()
+                    bus.connect('message', self.on_normal_adhan_termination)
+                    self.normalplayer.set_property('uri', uri)
+                    self.normalplayer.set_property("video-sink", fakesink)
+                    self.normalplayer.set_state(Gst.State.PLAYING)
+                    self.normaladhanplay.set_image(Gtk.Image.new_from_icon_name("media-playback-pause",  Gtk.IconSize.BUTTON))
+                    self.normalplaying = True
+        	else:
+                    self.normalplayer.set_state(Gst.State.NULL)
+                    self.normaladhanplay.set_image(Gtk.Image.new_from_icon_name("media-playback-start",  Gtk.IconSize.BUTTON))
+                    self.normalplaying = False
 
     def on_normal_adhan_termination(self, bus, message): 
         t = message.type

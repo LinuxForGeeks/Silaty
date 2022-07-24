@@ -10,27 +10,18 @@
 # TODO: Good Code Documentation
 
 import gi
+from PySide2 import QtWidgets, QtGui, QtCore
 gi.require_version('Gtk', '3.0')
-gi.require_version('AppIndicator3', '0.1')
 from gi.repository import Gtk, GObject, Gio, GLib, Gdk, GdkPixbuf
-from gi.repository import AppIndicator3 as AI
 from datetime import date
 from hijrical import *
 from silaty import *
 from translate import translate_text as _
-import locale
 import sys
 
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
-
-class SilatyIndicator():
-	def __init__(self):
-		# Setup Indicator Applet
-		self.Indicator = AI.Indicator.new("silaty-indicator", "silaty-indicator", AI.IndicatorCategory.APPLICATION_STATUS)
-		self.Indicator.set_status(AI.IndicatorStatus.ACTIVE)
-		self.Indicator.set_icon(self.icon())
-
-		# Activate the Silaty Window
+class SilatyIndicator(QtWidgets.QSystemTrayIcon):
+	def __init__(self, icon, parent=None):
+		QtWidgets.QSystemTrayIcon.__init__(self, icon, parent)
 		self.silaty = Silaty(self)
 
 		self.silaty.prayertimes.calculate()
@@ -41,67 +32,84 @@ class SilatyIndicator():
 
 		# Setup the Menu
 		print ("DEBUG: initialize the menu @", (str(datetime.datetime.now())))
-		self.Menu = Gtk.Menu()
+		global menu
+		menu = QtWidgets.QMenu(parent)
+
+		self.setContextMenu(menu)
 
 		# Add Hijri date
 		print ("DEBUG: Adding hijri date to menu @", (str(datetime.datetime.now())))
-		self.HijriDateItem = Gtk.MenuItem(self.get_hijri_date())
-		self.HijriDateItem.connect("activate", self.show_home)
-		self.Menu.append(self.HijriDateItem)
-		self.Menu.append(Gtk.SeparatorMenuItem())
+		global hijri_date_item
+		hijri_date_item = QtWidgets.QAction(self.get_hijri_date(), self)
+		hijri_date_item.triggered.connect(self.show_home)
+		menu.addAction(hijri_date_item)
+		menu.addSeparator()
 
 		# Add City
 		print ("DEBUG: Adding city to menu @", (str(datetime.datetime.now())))
-		self.CityItem = Gtk.MenuItem(_("Location: %s") % self.silaty.prayertimes.options.city, sensitive=False)
-		self.Menu.append(self.CityItem)
+		global city_item
+		city_item = QtWidgets.QAction(_("Location: %s") % self.silaty.prayertimes.options.city, self)
+		city_item.setEnabled(False)
+		menu.addAction(city_item)
 
 		# Add Qibla Direction
 		print ("DEBUG: Adding qibla direction to menu @", (str(datetime.datetime.now())))
-		self.QiblaItem = Gtk.MenuItem(_("Qibla is %.2f° from True North") % self.silaty.prayertimes.get_qibla())
-		self.QiblaItem.connect("activate", self.show_qibla)
-		self.Menu.append(self.QiblaItem)
-		self.Menu.append(Gtk.SeparatorMenuItem())
-
+		global qibla_item
+		qibla_item = QtWidgets.QAction(_("Qibla is %.2f° from True North") % self.silaty.prayertimes.get_qibla(), self)
+		qibla_item.triggered.connect(self.show_qibla)
+		menu.addAction(qibla_item)
+		menu.addSeparator()
+		
 		# Add Prayer Times
 		print ("DEBUG: Adding the prayer times to menu @", (str(datetime.datetime.now())))
-		self.FajrItem     = Gtk.MenuItem(_("Fajr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.fajr_time()), sensitive=False)
-		#self.ShurukItem   = Gtk.MenuItem(_("Shuruk\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.shrouk_time()), sensitive=False)
-		self.DhuhrItem    = Gtk.MenuItem(_("Dhuhr\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.zuhr_time()), sensitive=False)
-		self.AsrItem      = Gtk.MenuItem(_("Asr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.asr_time()), sensitive=False)
-		self.MaghribItem  = Gtk.MenuItem(_("Maghrib\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.maghrib_time()), sensitive=False)
-		self.IshaItem     = Gtk.MenuItem(_("Isha\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.isha_time()), sensitive=False)
-		self.Menu.append(self.FajrItem)
-		#self.Menu.append(self.ShurukItem)
-		self.Menu.append(self.DhuhrItem)
-		self.Menu.append(self.AsrItem)
-		self.Menu.append(self.MaghribItem)
-		self.Menu.append(self.IshaItem)
-		self.Menu.append(Gtk.SeparatorMenuItem())
-
-		print ("DEBUG: Adding Next prayer to menu @", (str(datetime.datetime.now())))
-		self.NextPrayerItem = Gtk.MenuItem(_('Next Prayer'), sensitive=False)# Next PrayerTime's Item, it shows you information about the next prayer
-		self.Menu.append(self.NextPrayerItem)
-		self.Menu.append(Gtk.SeparatorMenuItem())
+		global fajr_item
+		global zuhr_item
+		global asr_item
+		global maghrib_item
+		global isha_item
+		fajr_item    = QtWidgets.QAction(_("Fajr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.fajr_time()), self)
+		#shuruk_Item = QtWidgets.QAction(_("Shuruk\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.shrouk_time()), self)
+		zuhr_item   = QtWidgets.QAction(_("Dhuhr\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.zuhr_time()), self)
+		asr_item     = QtWidgets.QAction(_("Asr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.asr_time()), self)
+		maghrib_item = QtWidgets.QAction(_("Maghrib\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.maghrib_time()), self)
+		isha_item    = QtWidgets.QAction(_("Isha\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.isha_time()), self)
+		fajr_item.setEnabled(False)
+		zuhr_item.setEnabled(False)
+		asr_item.setEnabled(False)
+		maghrib_item.setEnabled(False)
+		isha_item.setEnabled(False)
+		menu.addAction(fajr_item)
+		#menu.addAction(shuruk_item)
+		menu.addAction(zuhr_item)
+		menu.addAction(asr_item)
+		menu.addAction(maghrib_item)
+		menu.addAction(isha_item)
+		
+		menu.addSeparator()
+		global next_prayer_item
+		next_prayer_item = QtWidgets.QAction(_('Next Prayer'), self)
+		next_prayer_item.setEnabled(False)
+		menu.addAction(next_prayer_item)
+		menu.addSeparator()
 
 		print ("DEBUG: Adding About, Settings and Quit to menu @", (str(datetime.datetime.now())))
 		# The Last 3 menu items never change and don't need to be updated
-		AboutItem = Gtk.MenuItem(_('About'))
-		self.Menu.append(AboutItem)
-		AboutItem.connect('activate',self.about_dialog, None)
+		about_item = QtWidgets.QAction("About", self)
+		about_item.triggered.connect(lambda: self.about_dialog(None))
+		menu.addAction(about_item)
 
-		SettingsItem = Gtk.MenuItem(_('Settings'))
-		self.Menu.append(SettingsItem)
-		SettingsItem.connect('activate', self.show_settings, None)
+		settings_item = QtWidgets.QAction("Settings", self)
+		settings_item.triggered.connect(lambda: self.show_window("options"))
+		menu.addAction(settings_item)
 
-		ExitItem = Gtk.MenuItem(_('Quit'))
-		self.Menu.append(ExitItem)
-		ExitItem.connect('activate', self.quit)
+		exit_item = QtWidgets.QAction("Quit", self)
+		exit_item.triggered.connect(self.quit)
+		menu.addAction(exit_item)
 
 		print ("DEBUG: starting mainloop @", (str(datetime.datetime.now())))
 		self.currentprayer = self.silaty.prayertimes.next_prayer()
 		self.loop()# Run Application's loop
-		self.Menu.show_all()# Show All Items
-		self.Indicator.set_menu(self.Menu)# Assign Menu To Indicator
+		#self.Indicator.set_menu(self.Menu)# Assign Menu To Indicator
 		self.Gobjectloop = GLib.timeout_add_seconds(1, self.loop)# Run loop
 
 	def loop(self):
@@ -109,21 +117,21 @@ class SilatyIndicator():
 		self.silaty.prayertimes.calculate()# Calculate PrayerTimes
 
 		# Update City menu item
-		self.CityItem.set_label(_("Location: %s") % self.silaty.prayertimes.options.city)
+		city_item.setText(_("Location: %s") % self.silaty.prayertimes.options.city)
 
 		# Update Hijri Date Menu item
-		self.HijriDateItem.set_label(self.get_hijri_date())
+		hijri_date_item.setText(self.get_hijri_date())
 
 		# Update Qibla Menu item
-		self.QiblaItem.set_label(_("Qibla is %.2f° from True North") % self.silaty.prayertimes.get_qibla())
+		qibla_item.setText(_("Qibla is %.2f° from True North") % self.silaty.prayertimes.get_qibla())
 
 		# Update Prayer Times items
-		self.FajrItem.set_label(_("Fajr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.fajr_time()))
-		#self.ShurukItem.set_label(_("Shuruk\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.shrouk_time()))
-		self.DhuhrItem.set_label(_("Dhuhr\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.zuhr_time()))
-		self.AsrItem.set_label(_("Asr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.asr_time()))
-		self.MaghribItem.set_label(_("Maghrib\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.maghrib_time()))
-		self.IshaItem.set_label(_("Isha\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.isha_time()))
+		fajr_item.setText(_("Fajr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.fajr_time()))
+		#shuruk_item.setText(_("Shuruk\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.shrouk_time()))
+		zuhr_item.setText(_("Dhuhr\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.zuhr_time()))
+		asr_item.setText(_("Asr\t\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.asr_time()))
+		maghrib_item.setText(_("Maghrib\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.maghrib_time()))
+		isha_item.setText(_("Isha\t\t\t\t%s") % self.silaty.get_times(self.silaty.prayertimes.isha_time()))
 
 		nextprayer = self.silaty.prayertimes.next_prayer()
 		tonextprayer = self.silaty.prayertimes.time_to_next_prayer()
@@ -133,14 +141,9 @@ class SilatyIndicator():
 			self.silaty.homebox.emit("prayers-updated", _(nextprayer))
 			self.currentprayer = nextprayer
 
-		self.NextPrayerItem.set_label(_("%s until %s") % (self.secs_to_hrtime(tonextprayer.seconds), _(nextprayer)))
+		next_prayer_item.setText(_("%s until %s") % (self.secs_to_hrtime(tonextprayer.seconds), _(nextprayer)))
 		self.silaty.headerbar.set_title(_("%s until %s") % (self.secs_to_hrtime(tonextprayer.seconds), _(nextprayer)))
-		self.Indicator.set_title(_("%s in %s") % (_(nextprayer), (self.secs_to_nrtime(tonextprayer.seconds))))
-
-		if self.silaty.prayertimes.options.iconlabel == True:
-			self.Indicator.set_label(_("%s in %s") % (_(nextprayer), (self.secs_to_nrtime(tonextprayer.seconds))),"")
-		else:
-			self.Indicator.set_label("","")
+		self.setToolTip("{} in {}".format(_(nextprayer), self.secs_to_nrtime(tonextprayer.seconds)))
 		return True
 
 	def secs_to_hrtime(self, secs):
@@ -169,21 +172,6 @@ class SilatyIndicator():
 			return _("%smin") % str(minutes)
 		else:
 			return _("%shr %smin") % (str(hours), str(minutes))
-
-	def icon(self):
-		# Get Icon
-		print ("DEBUG: getting Icons @", (str(datetime.datetime.now())))
-		PathDir = os.path.dirname(os.path.realpath(__file__)) + "/icons/hicolor/scalable/silaty-indicator.svg"
-		#print (PathDir)
-
-		if os.path.exists(PathDir):
-			print ("DEBUG: icon found in the OS @", (str(datetime.datetime.now())))
-			return PathDir
-
-		else:
-			print ("ERROR: Cannot find icon : silaty-indicator.svg @ %s" % (str(datetime.datetime.now())), file=sys.stderr)
-			print ("DEBUG: silaty-indicator QUITING @", (str(datetime.datetime.now())))
-			sys.exit(1)
 
 	def get_hijri_date(self):
 		wd = datetime.datetime.now().strftime("%A")
@@ -266,5 +254,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.''')
 		print ("DEBUG: starting/stopping GTK @", (str(datetime.datetime.now())))
 
 if __name__ == '__main__':
-	ipm = SilatyIndicator()
+	app = QtWidgets.QApplication(sys.argv)
+	w = QtWidgets.QWidget()
+	ipm = SilatyIndicator(QtGui.QIcon("silaty-indicator.png"), w)
+	ipm.show()
 	ipm.main()

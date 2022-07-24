@@ -26,13 +26,9 @@ __author__ = "Jesse Wayde Brandão (Abdul Hakim)"
 __all__ = ['Calendar', 'Prayertime', 'Madhab', 'as_pytime', 'as_pydatetime']
 
 import gi
-import distro
 gi.require_version('Gtk', '3.0')
-if distro.id() == 'arch':
-    gi.require_version('Notify', '0.8')
-else:
-    gi.require_version('Notify', '0.7')
-from gi.repository import Gtk, Gst, GObject, Gio, GLib, GdkPixbuf, Notify
+from notifypy import Notify
+from gi.repository import Gtk, Gst, GObject, Gio, GLib, GdkPixbuf
 from math import degrees, radians, atan, atan2, asin, acos, cos, sin, tan, fabs 
 from datetime import date, timedelta
 from time import strptime
@@ -112,6 +108,13 @@ class Prayertime(object):
 
     def time_to_next_prayer(self):
         return self._tnprayer
+
+    def notification_send(self, title, message, icon):
+        notification = Notify()
+        notification.title = title
+        notification.message = message
+        notification.icon = "silaty.png"
+        notification.send()
 
     def calculate(self, notify_also = True):
         """Calculations of prayertimes."""
@@ -281,9 +284,9 @@ class Prayertime(object):
         if notify_also:
             for time in PrayerTimes:
                 if time == NotifTime:
-                    self.notify(_('Get Ready'), _('%s minutes left until the %s prayer.') % (str(int(self.options.notification_time)), _(NextPrayer)))
+                    self.notification_send(_('Get Ready'),  _('%s minutes left until the %s prayer.') % (str(int(self.options.notification_time)), _(NextPrayer)), "")
                 elif time == Time:
-                    self.notify(_('Prayer time for %s') % _(CurrentPrayer), _("It's time for the %s prayer.") % _(CurrentPrayer), self.options.audio_notifications, CurrentPrayer)
+                    self.notification_send(_("It's time for the %s prayer.") % _(CurrentPrayer), _("It's time for the %s prayer.") % _(CurrentPrayer), "")
 
     def notify(self, title, message, play_audio = False, current_prayer = ''):
         Notify.init("Silaty")

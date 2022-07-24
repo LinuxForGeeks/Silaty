@@ -27,6 +27,7 @@ chmod 644 /usr/share/icons/hicolor/24x24/apps/silaty.svg
 
 cp *.py /usr/share/silaty/
 chmod 755 -R /usr/share/silaty/
+cp silaty.png /usr/share/silaty/
 
 cp silaty.desktop /etc/xdg/autostart/
 chmod 755 /etc/xdg/autostart/silaty.desktop
