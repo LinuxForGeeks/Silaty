@@ -2,7 +2,7 @@
 Version=1.0
 Name=Silaty
 Comment=A neat prayer reminder application
-Exec=/usr/local/bin/silaty-indicator
+Exec=bash -c "sleep 15 && /usr/local/bin/silaty-indicator"
 Icon=silaty
 Terminal=false
 StartupNotify=true
