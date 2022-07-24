@@ -113,7 +113,7 @@ class Prayertime(object):
         notification = Notify()
         notification.title = title
         notification.message = message
-        notification.icon = "silaty.png"
+        notification.icon = os.path.dirname(os.path.realpath(__file__)) + "/silaty.png"
         notification.send()
 
     def calculate(self, notify_also = True):
