@@ -92,7 +92,7 @@ sudo ./uninstall.sh
 
 1. How to run:
   * Download the latest zip file, unzip it, find 'silaty-indicator.exe', right-click -> Send to Desktop (Create Shortcut)
-  * Rename the desktop shortcut to Silaty (and change icon if you're free to convert silaty.png to .ico lol)
+  * Rename the desktop shortcut to Silaty, right-click -> properties -> change icon -> silaty.ico
 
 2. How to add on startup:
   * Win+R -> shell:startup
