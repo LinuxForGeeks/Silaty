@@ -44,7 +44,7 @@ Make sure that you have all the dependencies installed using the following comma
   <summary>Python Dependencies</summary>
   
 ```bash
-pip install PySide2 notify.pyu
+pip install PySide2 notify.py
 ```
 
 </details>
