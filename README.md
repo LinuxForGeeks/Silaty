@@ -39,6 +39,14 @@ git clone https://github.com/AXeL-dev/Silaty.git
 Make sure that you have all the dependencies installed using the following command:
 
 <details open>
+  <summary>Python Dependencies</summary>
+  
+```bash
+pip install PySide2 notify.pyu
+```
+
+</details>
+<details open>
   <summary>Ubuntu / Debian</summary>
 
 ```bash
