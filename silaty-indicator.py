@@ -256,6 +256,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.''')
 if __name__ == '__main__':
 	app = QtWidgets.QApplication(sys.argv)
 	w = QtWidgets.QWidget()
-	ipm = SilatyIndicator(QtGui.QIcon("silaty-indicator.png"), w)
+	ipm = SilatyIndicator(QtGui.QIcon(os.path.dirname(os.path.realpath(__file__)) + "/silaty-indicator.png"), w)
 	ipm.show()
 	ipm.main()
