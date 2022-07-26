@@ -53,7 +53,7 @@ pip install pyqt5 notify.py
   <summary>Ubuntu / Debian</summary>
 
 ```bash
-sudo apt install gir1.2-gtk-3.0 gir1.2-appindicator3-0.1 gir1.2-notify-0.7 gir1.2-gstreamer-1.0
+sudo apt install gir1.2-gtk-3.0 gir1.2-gstreamer-1.0
 ```
 
 </details>
@@ -62,7 +62,7 @@ sudo apt install gir1.2-gtk-3.0 gir1.2-appindicator3-0.1 gir1.2-notify-0.7 gir1.
   <summary>Arch Linux</summary>
 
 ```bash
-pacman -Syu gtk3 libappindicator-gtk3 libnotify gstreamer
+pacman -Syu gtk3 gstreamer
 ```
 
 </details>
