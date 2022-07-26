@@ -10,7 +10,7 @@
 # TODO: Good Code Documentation
 
 import gi
-from PySide2 import QtWidgets, QtGui, QtCore
+from PyQt5 import QtWidgets, QtGui, QtCore
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GObject, Gio, GLib, Gdk, GdkPixbuf
 from datetime import date
