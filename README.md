@@ -78,6 +78,15 @@ sudo ./uninstall.sh
 
 ## Changelog
 
+### v1.5
+
+- added [windows support](https://github.com/LinuxForGeeks/Silaty/tree/platform/win), thanks to @MustafaKhalaf69.
+- added short takbir audios.
+- fixed notify package version on arch linux.
+- enhanced translation mechanism.
+- added french & spanish translations, thanks to @DBChoco.
+- fixed prayer times alignment.
+
 ### v1.4
 
 - added snap & appimage packages.
