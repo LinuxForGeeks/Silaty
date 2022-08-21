@@ -11,7 +11,7 @@ A neat prayer reminder app in GTK
 [<img src="screenshots/linux-download.png" width="182" height="56" alt="Download the AppImage" />](https://github.com/LinuxForGeeks/Silaty/releases/download/v1.4/Silaty-1.4-x86_64.AppImage)
 [<img src="screenshots/windows-download.png" width="182" height="56" alt="Download on Windows" />](https://github.com/MustafaKhalaf69/SilatyCrossPlatform/releases/download/1.4-updated/SilatyWindows.zip)
 
-[How to install on windows?](https://github.com/LinuxForGeeks/Silaty/tree/platform/win#windows-configuration).
+[How to install on windows?](https://github.com/LinuxForGeeks/Silaty/tree/platform/win#windows-configuration)
 
 <!--
 ### Install using debian package
@@ -80,11 +80,11 @@ sudo ./uninstall.sh
 
 ### v1.5
 
-- added [windows support](https://github.com/LinuxForGeeks/Silaty/tree/platform/win), thanks to @MustafaKhalaf69.
+- added [windows support](https://github.com/LinuxForGeeks/Silaty/tree/platform/win), thanks to [@MustafaKhalaf69](https://github.com/MustafaKhalaf69).
 - added short takbir audios.
 - fixed notify package version on arch linux.
 - enhanced translation mechanism.
-- added french & spanish translations, thanks to @DBChoco.
+- added french & spanish translations, thanks to [@DBChoco](https://github.com/DBChoco).
 - fixed prayer times alignment.
 
 ### v1.4
