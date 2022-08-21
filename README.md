@@ -9,7 +9,11 @@ A neat prayer reminder app in GTK
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/silaty)
 [![احصل عليه من Snap Store](https://snapcraft.io/static/images/badges/ar/snap-store-black.svg)](https://snapcraft.io/silaty)
 [<img src="screenshots/linux-download.png" width="182" height="56" alt="Download the AppImage" />](https://github.com/LinuxForGeeks/Silaty/releases/download/v1.4/Silaty-1.4-x86_64.AppImage)
+[<img src="screenshots/windows-download.png" width="182" height="56" alt="Download on Windows" />](https://github.com/MustafaKhalaf69/SilatyCrossPlatform/releases/download/1.4-updated/SilatyWindows.zip)
 
+[How to install on windows?](https://github.com/LinuxForGeeks/Silaty/tree/platform/win#windows-configuration).
+
+<!--
 ### Install using debian package
 
 > :warning: The debian package is outdated, please install using one of the [above packages](#installation) or [from source](#install-from-source).
@@ -21,6 +25,7 @@ Install it using apt or any similar tool:
 ```bash
 sudo apt install silaty_1.3_all.deb
 ```
+-->
 
 ### Install from source
 
@@ -41,7 +46,7 @@ sudo apt install gir1.2-gtk-3.0 gir1.2-appindicator3-0.1 gir1.2-notify-0.7 gir1.
 
 </details>
 
-<details>
+<details open>
   <summary>Arch Linux</summary>
 
 ```bash
@@ -126,6 +131,7 @@ sudo ./uninstall.sh
 - [x] use a custom list to get/set location (@see [Minbar](https://github.com/fajran/minbar)).
 - [x] remove duplicate locations/cities in [Locations.xml](data/Locations.xml).
 - [ ] translate to other languages.
+- [ ] support dark mode.
 
 ## Credits
 
