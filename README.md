@@ -1,28 +1,34 @@
 # Silaty
 
-A neat prayer reminder app in GTK
+A neat prayer reminder app **(for Windows and Linux)** made in GTK
 
-![screenshot](screenshots/Silaty.png)
-
+![screenshot](screenshots/Silaty-windows.png) ![screenshot](screenshots/Silaty.png)
 ## Installation
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/silaty)
 [![احصل عليه من Snap Store](https://snapcraft.io/static/images/badges/ar/snap-store-black.svg)](https://snapcraft.io/silaty)
-[<img src="screenshots/linux-download.png" width="182" height="56" alt="Download the AppImage" />](https://github.com/LinuxForGeeks/Silaty/releases/download/v1.4/Silaty-1.4-x86_64.AppImage)
+[<img src="screenshots/windows-download.png" width="182" height="56" alt="Download the AppImage" />](https://github.com/LinuxForGeeks/Silaty/releases/download/v1.4/Silaty-1.4-x86_64.AppImage) [<img src="screenshots/linux-download.png" width="182" height="56" alt="Download the AppImage" />](https://github.com/LinuxForGeeks/Silaty/releases/download/v1.4/Silaty-1.4-x86_64.AppImage)
 
-### Install using debian package
+> :warning: Important info for [windows users, scroll down](#windows-configuration).
 
-> :warning: The debian package is outdated, please install using one of the [above packages](#installation) or [from source](#install-from-source).
+> :warning: The debian package is outdated, please install using one of the [above packages](#installation) or [from source](#install-from-source-any-linux-distro).
 
-Download the [package](https://github.com/AXeL-dev/Silaty/releases/download/v1.3/silaty_1.3_all.deb).
+~~### Install using debian package~~
 
-Install it using apt or any similar tool:
+~~Download the [package](https://github.com/AXeL-dev/Silaty/releases/download/v1.3/silaty_1.3_all.deb).~~
 
+~~Install it using apt or any similar tool:~~
+
+<details>
+  <summary>Oudated Debian package</summary>
+  
 ```bash
 sudo apt install silaty_1.3_all.deb
 ```
+  
+</details>
 
-### Install from source
+### Install from source (Any Linux Distro)
 
 Download or clone this repository with git:
 
@@ -32,20 +38,31 @@ git clone https://github.com/AXeL-dev/Silaty.git
 
 Make sure that you have all the dependencies installed using the following command:
 
+> :warning: Must install both python deps and package deps
+
+<details open>
+  <summary>Python Dependencies</summary>
+  
+```bash
+pip install pyqt5 notify.py
+```
+
+</details>
+# Packages
 <details open>
   <summary>Ubuntu / Debian</summary>
 
 ```bash
-sudo apt install gir1.2-gtk-3.0 gir1.2-appindicator3-0.1 gir1.2-notify-0.7 gir1.2-gstreamer-1.0
+sudo apt install gir1.2-gtk-3.0 gir1.2-gstreamer-1.0
 ```
 
 </details>
 
-<details>
+<details open>
   <summary>Arch Linux</summary>
 
 ```bash
-pacman -Syu gtk3 libappindicator-gtk3 libnotify gstreamer
+pacman -Syu gtk3 gstreamer
 ```
 
 </details>
@@ -71,7 +88,39 @@ To uninstall run:
 sudo ./uninstall.sh
 ```
 
+## Windows Configuration
+
+1. How to run:
+  * Download the latest zip file, unzip it, find 'silaty-indicator.exe', right-click -> Send to Desktop (Create Shortcut)
+  * Rename the desktop shortcut to Silaty, right-click -> properties -> change icon -> silaty.ico
+
+2. How to add on startup:
+  * Win+R -> shell:startup
+  * Copy the desktop shortcut to the folder
+  
+3. Change time to 24 clock:
+  Set clock to 24h in silaty settings
+  Settings -> Date & Time -> Date, time & regional formatting -> Change data formats:
+    ![screenshot](screenshots/short-long-time.png)
+
+4. How to enable dark mode:
+  * C:/Users/[username]/AppData/Local
+  * Create a folder 'gtk-3.0' if it's not there
+  * Create a file 'settings.ini' inside of the folder
+  * Paste the following and save:
+  ```
+  [Settings]
+  gtk-application-prefer-dark-theme=true
+  ```
+  
+  [Source](https://github.com/Qalculate/qalculate-gtk/issues/18#issuecomment-604860016)
+  
 ## Changelog
+
+### 1.4-updated
+
+- added windows support
+- switched most linux-only libraries
 
 ### v1.4
 
