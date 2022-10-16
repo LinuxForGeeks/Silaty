@@ -41,6 +41,7 @@ from translate import translate_text as _
 import datetime
 import time
 import os
+import subprocess
 
 class Prayertime(object):
 
@@ -285,6 +286,16 @@ class Prayertime(object):
                 elif time == Time:
                     self.notify(_('Prayer time for %s') % _(CurrentPrayer), _("It's time for the %s prayer.") % _(CurrentPrayer), self.options.audio_notifications, CurrentPrayer)
 
+    def muteApps(self, value = 'true'):
+        try:
+            inputs = subprocess.getoutput('pacmd list-sink-inputs | sed -n "s/^\s*index: \([[:digit:]]*\)/\\1/p"').split('\n')
+            clients = subprocess.getoutput('pacmd list-sink-inputs | sed -n "s/^\s*client: [[:digit:]]* <\(.*\)>/\\1/p"').split('\n')
+            for i in range(len(inputs)):
+                if clients[i] not in ['silaty-indicator', 'ZOOM VoiceEngine']:
+                    subprocess.Popen(['pacmd', 'set-sink-input-mute', inputs[i], value])
+        except:
+            print ("DEBUG: Cannot mute apps @", (str(datetime.datetime.now())))
+
     def notify(self, title, message, play_audio = False, current_prayer = ''):
         Notify.init("Silaty")
         notif = Notify.Notification.new(title, message)
@@ -292,6 +303,7 @@ class Prayertime(object):
         notif.set_icon_from_pixbuf(icon)
 
         if play_audio:
+            self.muteApps()
             if current_prayer == 'Fajr':
                 uri = "file://" + os.path.dirname(os.path.realpath(__file__)) + "/audio/Fajr/" + self.options.fajr_adhan + ".ogg"
                 self.fajrplayer = Gst.ElementFactory.make("playbin", "player")
@@ -299,6 +311,9 @@ class Prayertime(object):
                 self.fajrplayer.set_property('uri', uri)
                 self.fajrplayer.set_property("video-sink", fakesink)
                 self.fajrplayer.set_state(Gst.State.PLAYING)
+                bus = self.fajrplayer.get_bus()
+                bus.add_signal_watch()
+                bus.connect("message", self.on_fajrplayer_message)
             else:
                 uri = "file://" + os.path.dirname(os.path.realpath(__file__)) + "/audio/Normal/" + self.options.normal_adhan + ".ogg"
                 self.normalplayer = Gst.ElementFactory.make("playbin", "player")
@@ -306,9 +321,34 @@ class Prayertime(object):
                 self.normalplayer.set_property('uri', uri)
                 self.normalplayer.set_property("video-sink", fakesink)
                 self.normalplayer.set_state(Gst.State.PLAYING)
+                bus = self.normalplayer.get_bus()
+                bus.add_signal_watch()
+                bus.connect("message", self.on_normalplayer_message)
 
         notif.set_app_name('Silaty')
         notif.show()
+
+    def on_fajrplayer_message(self, bus, message):
+        t = message.type
+        if t == Gst.MessageType.EOS: # track is finished
+            self.fajrplayer.set_state(Gst.State.NULL)
+            self.muteApps('false')
+        elif t == Gst.MessageType.ERROR:
+            self.fajrplayer.set_state(Gst.State.NULL)
+            self.muteApps('false')
+            err, debug = message.parse_error()
+            print ("Error: %s" % err, debug)
+
+    def on_normalplayer_message(self, bus, message):
+        t = message.type
+        if t == Gst.MessageType.EOS: # track is finished
+            self.normalplayer.set_state(Gst.State.NULL)
+            self.muteApps('false')
+        elif t == Gst.MessageType.ERROR:
+            self.normalplayer.set_state(Gst.State.NULL)
+            self.muteApps('false')
+            err, debug = message.parse_error()
+            print ("Error: %s" % err, debug)  
 
     def closest(self, target, collection) :# Returns the closest Adhan
         return min((abs(target - i), i) for i in collection)[1]
