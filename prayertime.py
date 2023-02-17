@@ -26,12 +26,7 @@ __author__ = "Jesse Wayde Brandão (Abdul Hakim)"
 __all__ = ['Calendar', 'Prayertime', 'Madhab', 'as_pytime', 'as_pydatetime']
 
 import gi
-import distro
 gi.require_version('Gtk', '3.0')
-if distro.id() == 'arch':
-    gi.require_version('Notify', '0.8')
-else:
-    gi.require_version('Notify', '0.7')
 from gi.repository import Gtk, Gst, GObject, Gio, GLib, GdkPixbuf, Notify
 from math import degrees, radians, atan, atan2, asin, acos, cos, sin, tan, fabs 
 from datetime import date, timedelta
