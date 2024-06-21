@@ -27,6 +27,7 @@ __all__ = ['Calendar', 'Prayertime', 'Madhab', 'as_pytime', 'as_pydatetime']
 
 import gi
 gi.require_version('Gtk', '3.0')
+gi.require_version('Notify', '0.7')
 from gi.repository import Gtk, Gst, GObject, Gio, GLib, GdkPixbuf, Notify
 from math import degrees, radians, atan, atan2, asin, acos, cos, sin, tan, fabs 
 from datetime import date, timedelta
@@ -283,8 +284,8 @@ class Prayertime(object):
 
     def muteApps(self, value = 'true'):
         try:
-            inputs = subprocess.getoutput('pacmd list-sink-inputs | sed -n "s/^\s*index: \([[:digit:]]*\)/\\1/p"').split('\n')
-            clients = subprocess.getoutput('pacmd list-sink-inputs | sed -n "s/^\s*client: [[:digit:]]* <\(.*\)>/\\1/p"').split('\n')
+            inputs = subprocess.getoutput('pacmd list-sink-inputs | sed -n "s/^\\s*index: \\([[:digit:]]*\\)/\\1/p"').split('\n')
+            clients = subprocess.getoutput('pacmd list-sink-inputs | sed -n "s/^\\s*client: [[:digit:]]* <\\(.*\\)>/\\1/p"').split('\n')
             for i in range(len(inputs)):
                 if clients[i] not in ['silaty-indicator', 'ZOOM VoiceEngine']:
                     subprocess.Popen(['pacmd', 'set-sink-input-mute', inputs[i], value])

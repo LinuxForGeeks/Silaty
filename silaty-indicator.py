@@ -21,6 +21,7 @@ from translate import translate_text as _
 import locale
 import sys
 
+# you might need to install the locale: sudo apt install language-pack-en
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 class SilatyIndicator():
